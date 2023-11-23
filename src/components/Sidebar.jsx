@@ -1,5 +1,15 @@
+import Chats from "./Chats";
+import Navbar from "./Navbar";
+import Search from "./Search";
+
 function Sidebar() {
-  return <div></div>;
+  return (
+    <div className="sidebar">
+      <Navbar />
+      <Search />
+      <Chats />
+    </div>
+  );
 }
 
 export default Sidebar;

@@ -2,11 +2,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Nunito", sans-serif;
 }
 
 html {
   /* 10px */
-  /* font-size: 62.5%; */
+  font-size: 62.5%;
 }
 
 .form-container {
@@ -79,4 +80,256 @@ html {
 .sign-up-footer {
   color: #302b63;
   margin-top: 1rem;
+}
+
+.home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+  height: 100vh;
+  color: #fff;
+}
+
+.home-container {
+  display: flex;
+  border: 1px solid #fff;
+  border-radius: 1rem;
+  width: 65%;
+  height: 80%;
+  overflow: hidden;
+}
+
+.sidebar {
+  flex: 1;
+
+  background-color: #302b63;
+}
+.chat {
+  flex: 2;
+  background-color: #ebebeb;
+
+  border-radius: 1rem;
+  color: #24243e;
+}
+
+.chat-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 5rem;
+  background-color: #302b63;
+  color: #fff;
+  padding: 1rem;
+}
+
+.chat-info span {
+  font-size: 1.8rem;
+}
+
+.chat-icons {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  height: 2.4rem;
+  gap: 1rem;
+}
+
+.camera-icon,
+.add-friend-icon,
+.more-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  stroke: #fff;
+}
+
+.messages {
+  padding: 1rem;
+  background-color: #ebebeb;
+  height: calc(100% - 10rem);
+  overflow: scroll;
+}
+
+.chat-message {
+  display: flex;
+  gap: 2rem;
+  font-size: 1.6rem;
+  margin-bottom: 2rem;
+}
+
+.chat-message-info {
+  display: flex;
+  flex-direction: column;
+  color: gray;
+  align-items: center;
+}
+
+.chat-message-info img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chat-message-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 80%;
+}
+
+.chat-message-content img {
+  width: 50%;
+}
+
+.chat-message-content p {
+  background-color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 1rem 1rem 1rem 0rem;
+  max-width: max-content;
+}
+
+.message-owner {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.message-owner p {
+  background-color: #302b63;
+  color: #fff;
+  border-radius: 1rem 1rem 0rem 1rem;
+}
+
+.message-owner .chat-message-content {
+  align-items: flex-end;
+}
+
+.message-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 5rem;
+  background-color: #fff;
+  padding: 1rem;
+}
+
+.message-input input {
+  width: 100%;
+  outline: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #24243e;
+}
+
+.message-input input::placeholder {
+  color: #707070;
+}
+
+.send {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.send button {
+  border: none;
+  padding: 1rem 1.5rem;
+  color: #fff;
+  background-color: #24243e;
+}
+
+.input-icon {
+  height: 2.4rem;
+  width: 2.4rem;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #24243e;
+  height: 5rem;
+  padding: 1rem;
+  color: #fff;
+}
+
+.logo-home {
+  font-size: 2.2rem;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user img {
+  height: 2.4rem;
+  width: 2.4rem;
+  border-radius: 50%;
+  background-color: #302b63;
+  object-fit: cover;
+}
+
+.user span {
+  font-size: 1.8rem;
+}
+
+.user button {
+  background-color: #393662;
+  color: #fff;
+  border: none;
+  padding: 0.4rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.search {
+  border: none;
+  border-bottom: 1px solid gray;
+}
+
+.search-form {
+  padding: 1rem;
+}
+
+.search-form input {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  outline: none;
+}
+
+.search-form input::placeholder {
+  color: #707070;
+}
+
+.user-chat {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.user-chat:hover {
+  background-color: #24243e;
+}
+
+.user-chat img {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-chat-info span {
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.user-chat-info p {
+  font-size: 1.4rem;
+  color: lightgray;
 }
