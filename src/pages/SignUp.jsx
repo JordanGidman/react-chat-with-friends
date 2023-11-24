@@ -11,7 +11,7 @@ function SignUp() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(e.target[0].value);
+
     //capture all details at once. Not using controlled components in this case due to file upload
     const displayName = e.target[0].value;
     const email = e.target[1].value;
@@ -22,7 +22,7 @@ function SignUp() {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
       //Speak to the cloud storage and upload the file
-      console.log(res);
+
       const storageRef = ref(storage, displayName);
 
       const uploadTask = uploadBytesResumable(storageRef, file);
@@ -34,27 +34,31 @@ function SignUp() {
         },
         () => {
           console.log(uploadTask.snapshot);
-          //get the file back from cloud storage in the form of a url
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            //then update the user profile with the new img
-            console.log(downloadURL);
-            await updateProfile(res.user, {
-              displayName,
-              photoURL: downloadURL,
-            });
-            //save the new user to our users collection keeping the password out of it
+          //prevents the getDownloadURL from trying to acces the snapshot before its been made available
+          uploadTask.snapshot.metadata &&
+            //get the file back from cloud storage in the form of a url
+            getDownloadURL(uploadTask.snapshot.ref).then(
+              async (downloadURL) => {
+                //then update the user profile with the new img
+                console.log(downloadURL);
+                await updateProfile(res.user, {
+                  displayName,
+                  photoURL: downloadURL,
+                });
+                //save the new user to our users collection keeping the password out of it
 
-            await setDoc(doc(db, "users", res.user.uid), {
-              uid: res.user.uid,
-              displayName,
-              email,
-              photoURL: downloadURL,
-            });
+                await setDoc(doc(db, "users", res.user.uid), {
+                  uid: res.user.uid,
+                  displayName,
+                  email,
+                  photoURL: downloadURL,
+                });
 
-            //save the user chats by userid
-            await setDoc(doc(db, "userChats", res.user.uid), {});
-            navigate("/");
-          });
+                //save the user chats by userid
+                await setDoc(doc(db, "userChats", res.user.uid), {});
+                navigate("/");
+              }
+            );
         }
       );
     } catch (err) {
