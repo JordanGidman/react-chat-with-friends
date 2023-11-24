@@ -290,6 +290,8 @@ html {
 }
 
 .search-form {
+  display: flex;
+  align-items: center;
   padding: 1rem;
 }
 
@@ -298,6 +300,7 @@ html {
   border: none;
   color: #fff;
   outline: none;
+  width: 100%;
 }
 
 .search-form input::placeholder {

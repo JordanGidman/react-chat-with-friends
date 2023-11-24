@@ -3,14 +3,16 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, storage, db } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function SignUp() {
   const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setIsLoading(true);
 
     //capture all details at once. Not using controlled components in this case due to file upload
     const displayName = e.target[0].value;
@@ -33,14 +35,13 @@ function SignUp() {
           setError(true);
         },
         () => {
-          console.log(uploadTask.snapshot);
           //prevents the getDownloadURL from trying to acces the snapshot before its been made available
           uploadTask.snapshot.metadata &&
             //get the file back from cloud storage in the form of a url
             getDownloadURL(uploadTask.snapshot.ref).then(
               async (downloadURL) => {
                 //then update the user profile with the new img
-                console.log(downloadURL);
+
                 await updateProfile(res.user, {
                   displayName,
                   photoURL: downloadURL,
@@ -57,6 +58,7 @@ function SignUp() {
                 //save the user chats by userid
                 await setDoc(doc(db, "userChats", res.user.uid), {});
                 navigate("/");
+                setIsLoading(false);
               }
             );
         }
@@ -111,10 +113,14 @@ function SignUp() {
             </svg>
             <span>Add a picture</span>
           </label>
-          <button className="sign-up-form-btn">Sign Up</button>
+          <button className="sign-up-form-btn" disabled={isLoading}>
+            Sign Up
+          </button>
           {error && <span>Something went wrong..</span>}
         </form>
-        <p className="signup-footer">Already have an account? Login</p>
+        <p className="signup-footer">
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
       </div>
     </div>
   );
