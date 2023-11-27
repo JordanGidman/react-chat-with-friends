@@ -1,4 +1,5 @@
 import Chat from "../components/Chat";
+import FriendsList from "../components/FriendsList";
 import Sidebar from "../components/Sidebar";
 
 function Home() {
@@ -7,6 +8,7 @@ function Home() {
       <div className="home-container">
         <Sidebar />
         <Chat />
+        <FriendsList />
       </div>
     </div>
   );

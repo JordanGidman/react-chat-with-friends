@@ -2,9 +2,26 @@ import { useContext } from "react";
 import Input from "./Input";
 import Messages from "./Messages";
 import { ChatContext } from "../context/ChatContext";
+import { AuthContext } from "../context/AuthContext";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
 function Chat() {
   const { data } = useContext(ChatContext);
+  const { currentUser } = useContext(AuthContext);
+
+  async function handleAddFriend() {
+    try {
+      await updateDoc(doc(db, "friends", currentUser.uid), {
+        friends: arrayUnion({
+          uid: data.user.uid,
+        }),
+      });
+      console.log("friend added");
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className="chat">
@@ -32,6 +49,7 @@ function Chat() {
             strokeWidth={1.5}
             stroke="currentColor"
             className="add-friend-icon"
+            onClick={handleAddFriend}
           >
             <path
               strokeLinecap="round"

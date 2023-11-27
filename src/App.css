@@ -189,6 +189,10 @@ html {
   max-width: max-content;
 }
 
+.friends-list {
+  flex: 1;
+}
+
 .message-owner {
   display: flex;
   flex-direction: row-reverse;
@@ -309,6 +313,7 @@ html {
 
 .user-chat {
   display: flex;
+
   align-items: center;
   padding: 1rem;
   gap: 1rem;
@@ -316,18 +321,34 @@ html {
   cursor: pointer;
 }
 
-.user-chat:hover {
-  background-color: #24243e;
+.friends-list h3 {
+  font-size: 2.4rem;
+  padding: 1rem;
 }
 
-.user-chat img {
+.friend {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.user-chat:hover,
+.friend:hover {
+  background-color: #24243e;
+  cursor: pointer;
+}
+
+.user-chat img,
+.friends-list img {
   width: 5rem;
   height: 5rem;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.user-chat-info span {
+.user-chat-info span,
+.friend span {
   font-size: 1.8rem;
   font-weight: 500;
 }

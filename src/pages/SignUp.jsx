@@ -53,6 +53,7 @@ function SignUp() {
                   displayName,
                   email,
                   photoURL: downloadURL,
+                  friendsList: [],
                 });
 
                 //save the user chats by userid
