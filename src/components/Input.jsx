@@ -1,7 +1,95 @@
+import { useContext, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { ChatContext } from "../context/ChatContext";
+import {
+  Timestamp,
+  arrayUnion,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
+import { db, storage } from "../firebase";
+import { v4 as uuid } from "uuid";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+
 function Input() {
+  const [text, setText] = useState("");
+  const [img, setImg] = useState(null);
+  const [error, setError] = useState(false);
+
+  const { currentUser } = useContext(AuthContext);
+  const { data } = useContext(ChatContext);
+
+  async function handleSend() {
+    //Sending image message
+    if (img) {
+      const storageRef = ref(storage, uuid());
+
+      const uploadTask = uploadBytesResumable(storageRef, img);
+
+      uploadTask.on(
+        (error) => {
+          // Handle unsuccessful uploads
+          setError(true);
+        },
+        () => {
+          //prevents the getDownloadURL from trying to acces the snapshot before its been made available
+          uploadTask.snapshot.metadata &&
+            //get the file back from cloud storage in the form of a url
+            getDownloadURL(uploadTask.snapshot.ref).then(
+              async (downloadURL) => {
+                //then update the user messages with the new img
+
+                await updateDoc(doc(db, "chats", data.chatId), {
+                  messages: arrayUnion({
+                    id: uuid(),
+                    text,
+                    senderId: currentUser.uid,
+                    date: Timestamp.now(),
+                    img: downloadURL,
+                  }),
+                });
+              }
+            );
+        }
+      );
+    } else {
+      //sending just text message
+      await updateDoc(doc(db, "chats", data.chatId), {
+        messages: arrayUnion({
+          id: uuid(),
+          text,
+          senderId: currentUser.uid,
+          date: Timestamp.now(),
+        }),
+      });
+    }
+    //update the date to keep the chats sorted by most recent
+    await updateDoc(doc(db, "userChats", currentUser.uid), {
+      [data.chatId + ".lastMessage"]: {
+        text,
+      },
+      [data.chatId + ".date"]: serverTimestamp(),
+    });
+
+    console.log(data);
+    await updateDoc(doc(db, "userChats", data.user.uid), {
+      [data.chatId + ".lastMessage"]: {
+        text,
+      },
+      [data.chatId + ".date"]: serverTimestamp(),
+    });
+    setText("");
+    setImg(null);
+  }
   return (
     <div className="message-input">
-      <input type="text" placeholder="Type something..." />
+      <input
+        type="text"
+        placeholder="Type something..."
+        onChange={(e) => setText(e.target.value)}
+        value={text}
+      />
       <div className="send">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -18,7 +106,12 @@ function Input() {
           />
         </svg>
 
-        <input type="file" id="file" style={{ display: "none" }} />
+        <input
+          type="file"
+          id="file"
+          style={{ display: "none" }}
+          onChange={(e) => setImg(e.target.files[0])}
+        />
         <label htmlFor="file">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +128,7 @@ function Input() {
             />
           </svg>
         </label>
-        <button>Send</button>
+        <button onClick={handleSend}>Send</button>
       </div>
     </div>
   );

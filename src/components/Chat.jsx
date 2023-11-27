@@ -1,11 +1,15 @@
+import { useContext } from "react";
 import Input from "./Input";
 import Messages from "./Messages";
+import { ChatContext } from "../context/ChatContext";
 
 function Chat() {
+  const { data } = useContext(ChatContext);
+
   return (
     <div className="chat">
       <div className="chat-info">
-        <span>Jordan</span>
+        <span>{data.user?.displayName}</span>
         <div className="chat-icons">
           <svg
             xmlns="http://www.w3.org/2000/svg"
