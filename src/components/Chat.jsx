@@ -5,10 +5,15 @@ import { ChatContext } from "../context/ChatContext";
 import { AuthContext } from "../context/AuthContext";
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import BurgerButton from "./BurgerButton";
 
-function Chat() {
+function Chat({ setSidebarClass }) {
   const { data } = useContext(ChatContext);
   const { currentUser } = useContext(AuthContext);
+
+  function showSidebar() {
+    setSidebarClass("show-sidebar");
+  }
 
   async function handleAddFriend() {
     try {
@@ -26,6 +31,7 @@ function Chat() {
   return (
     <div className="chat">
       <div className="chat-info">
+        <BurgerButton onClick={showSidebar} />
         <span>{data.user?.displayName}</span>
         <div className="chat-icons">
           <svg

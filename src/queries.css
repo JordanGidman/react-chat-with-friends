@@ -1,0 +1,99 @@
+@media (max-width: 102.2em) {
+  .logo-home {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 67.5em) {
+  .btn-mobile-nav {
+    display: block;
+  }
+
+  .home-container {
+    position: relative;
+  }
+
+  .chat {
+    width: 100%;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .show-sidebar {
+    flex: 1;
+
+    background-color: #302b63;
+    display: block;
+    position: absolute;
+    height: 80vh;
+    width: 80vw;
+    overflow-y: scroll;
+  }
+
+  .show-sidebar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .friends-list {
+    display: none;
+  }
+}
+
+@media (max-width: 35.1em) {
+  .chat-message {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+    gap: 1rem;
+  }
+
+  .chat-message-info img {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .chat-message-info span {
+    font-size: 1.2rem;
+  }
+
+  .chat-message-content p {
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 29.7em) {
+  .logo-home {
+    display: none;
+  }
+}
+
+@media (max-width: 25.25em) {
+  .chat-message {
+    font-size: 1.4rem;
+    gap: 0.5rem;
+  }
+
+  .chat-message-content {
+    max-width: 75%;
+  }
+
+  .message-input input {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 21.25em) {
+  .burger-icon {
+    height: 2rem;
+    width: 2rem;
+  }
+
+  .user {
+    gap: 0.8rem;
+  }
+
+  .user span {
+    font-size: 1.6rem;
+  }
+}

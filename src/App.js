@@ -1,10 +1,13 @@
 import { useContext } from "react";
 import "./App.css";
+import "./queries.css";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";
+
+//add a default image for the user if they dont upload one
 
 function App() {
   const { currentUser } = useContext(AuthContext);

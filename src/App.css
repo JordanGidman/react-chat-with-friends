@@ -95,7 +95,7 @@ html {
   display: flex;
   border: 1px solid #fff;
   border-radius: 1rem;
-  width: 65%;
+  width: 80%;
   height: 80%;
   overflow: hidden;
 }
@@ -104,7 +104,13 @@ html {
   flex: 1;
 
   background-color: #302b63;
+  overflow-y: scroll;
 }
+
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
+
 .chat {
   flex: 2;
   background-color: #ebebeb;
@@ -121,6 +127,23 @@ html {
   background-color: #302b63;
   color: #fff;
   padding: 1rem;
+}
+
+.btn-mobile-nav {
+  padding: 1rem;
+  background-color: transparent;
+  border: none;
+  display: none;
+  color: #ebebeb;
+}
+
+.btn-mobile-nav:hover {
+  cursor: pointer;
+}
+
+.burger-icon {
+  height: 2.4rem;
+  width: 2.4rem;
 }
 
 .chat-info span {
@@ -150,6 +173,10 @@ html {
   overflow: scroll;
 }
 
+.messages::-webkit-scrollbar {
+  display: none;
+}
+
 .chat-message {
   display: flex;
   gap: 2rem;
@@ -162,6 +189,7 @@ html {
   flex-direction: column;
   color: gray;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .chat-message-info img {
@@ -190,7 +218,12 @@ html {
 }
 
 .friends-list {
-  flex: 1;
+  flex: 0.8;
+  overflow-y: scroll;
+}
+
+.friends-list::-webkit-scrollbar {
+  display: none;
 }
 
 .message-owner {
