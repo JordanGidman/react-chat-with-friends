@@ -1,5 +1,4 @@
 import Chats from "./Chats";
-import FriendsList from "./FriendsList";
 import Navbar from "./Navbar";
 import Search from "./Search";
 

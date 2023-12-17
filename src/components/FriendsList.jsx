@@ -19,15 +19,11 @@ function FriendsList() {
   const { dispatch } = useContext(ChatContext);
 
   useEffect(() => {
-    //Get all friends id's
+    //Get all friends from firebase
     if (currentUser.uid) {
-      console.log(currentUser);
-
       const unsub = onSnapshot(doc(db, "friends", currentUser.uid), (doc) => {
         doc.exists() && setFriendIds(doc.data().friends);
       });
-
-      //get all friends
 
       return () => {
         unsub();
@@ -35,6 +31,7 @@ function FriendsList() {
     }
   }, [currentUser]);
 
+  //pull the corresponding user data about the friends i.e picture and name
   useEffect(() => {
     if (friendIds.length > 0) {
       friendIds?.map(async (friend) => {
@@ -46,12 +43,13 @@ function FriendsList() {
         const querySnapshot = await getDocs(q);
 
         querySnapshot.forEach((doc) => {
-          console.log(doc.data());
-          setFriends((friends) =>
-            friends.filter((friend) => friend.uid !== doc.data().uid)
-              ? [...friends, doc.data()]
-              : friends
-          );
+          setFriends((prevFriends) => {
+            if (prevFriends.find((friend) => friend.uid === doc.data().uid)) {
+              return prevFriends;
+            } else {
+              return [...prevFriends, doc.data()];
+            }
+          });
         });
       });
     }

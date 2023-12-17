@@ -179,7 +179,7 @@ html {
 
 .chat-message {
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
   font-size: 1.6rem;
   margin-bottom: 2rem;
 }
@@ -190,6 +190,10 @@ html {
   color: gray;
   align-items: center;
   justify-content: flex-end;
+}
+
+.chat-message-info span {
+  font-size: 1.2rem;
 }
 
 .chat-message-info img {

@@ -7,6 +7,13 @@ function ChatMessage({ message }) {
   const { data } = useContext(ChatContext);
 
   const ref = useRef();
+  const messageDate = message.date.toDate().toLocaleString("en-US", {
+    dateStyle: "short",
+  });
+
+  const messageTime = message.date.toDate().toLocaleString("en-US", {
+    timeStyle: "short",
+  });
 
   useEffect(() => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
@@ -28,7 +35,14 @@ function ChatMessage({ message }) {
           }
           alt=""
         />
-        <span>just now</span>
+        <span>
+          {messageDate !==
+          new Date().toLocaleString("en-US", {
+            dateStyle: "short",
+          })
+            ? messageDate
+            : messageTime}
+        </span>
       </div>
       <div className="chat-message-content">
         <p>{message.text}</p>

@@ -21,6 +21,7 @@ function Input() {
   const { data } = useContext(ChatContext);
 
   async function handleSend() {
+    if (text === "") return;
     //Sending image message
     if (img) {
       const storageRef = ref(storage, uuid());

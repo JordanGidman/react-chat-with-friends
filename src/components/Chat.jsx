@@ -3,7 +3,7 @@ import Input from "./Input";
 import Messages from "./Messages";
 import { ChatContext } from "../context/ChatContext";
 import { AuthContext } from "../context/AuthContext";
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import BurgerButton from "./BurgerButton";
 
@@ -17,12 +17,29 @@ function Chat({ setSidebarClass }) {
 
   async function handleAddFriend() {
     try {
-      await updateDoc(doc(db, "friends", currentUser.uid), {
-        friends: arrayUnion({
-          uid: data.user.uid,
-        }),
-      });
-      console.log("friend added");
+      const userFriendsRef = doc(db, "friends", currentUser.uid);
+      console.log(currentUser.uid);
+
+      const friendsList = await getDoc(userFriendsRef);
+      //if the users friends doc already exists update it
+      if (friendsList.data() !== undefined) {
+        await updateDoc(doc(db, "friends", currentUser.uid), {
+          friends: arrayUnion({
+            uid: data.user.uid,
+          }),
+        });
+      } else {
+        //else create it
+        await setDoc(userFriendsRef, {
+          friends: [{ uid: data.user.uid }],
+        });
+
+        await updateDoc(userFriendsRef, {
+          friends: arrayUnion({
+            uid: data.user.uid,
+          }),
+        });
+      }
     } catch (error) {
       console.log(error);
     }

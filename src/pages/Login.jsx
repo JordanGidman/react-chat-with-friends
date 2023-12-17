@@ -31,7 +31,7 @@ function Login() {
     <div className="form-container">
       <div className="form-wrapper">
         <h1 className="logo">Giddy Chat</h1>
-        <span className="subheading">Sign up</span>
+        <span className="subheading">Sign In</span>
         <form className="signup-form" onSubmit={handleSubmit}>
           <input
             type="email"
